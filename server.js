@@ -17,9 +17,22 @@ app.get('/vehiculos', (req, res) => {
 });
 
 app.post('/vehiculos/nuevo', (req, res) => {
-   //Implementar codigo para crear vehiculo en la base de datos
-   console.log('vehiculo a crear:', req.body);
-   res.send('Ok, vehiculo creado')
+   const datosVehiculos = req.body;
+   console.log('Llaves: ', Object.keys(datosVehiculos));
+   try {
+      if (
+         Object.keys(datosVehiculos).includes('name') &&
+         Object.keys(datosVehiculos).includes('brand') &&
+         Object.keys(datosVehiculos).includes('model')
+      ) {
+         //Implementar codigo para crear vehiculo en la base de datos
+         res.sendStatus(200);
+      } else {
+         res.sendStatus(500);
+      }
+   } catch {
+      res.sendStatus(500);
+   }
 });
 
 app.listen(5000, () => {
