@@ -1,11 +1,12 @@
-// Hacer el import de express tradicional --> const express = require('express');
-
+import Cors from 'cors';
+import dotenv from 'dotenv';
 import Express from "express";
 import { MongoClient, ObjectId } from "mongodb";
-import Cors from 'cors';
 
-const stringConection = 
-   'mongodb+srv://dramirez:MunDial22*@proyectonewusedb.9g93n.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+dotenv.config({path:'./.env'});
+
+const stringConection = process.env.DATABASE_URL;
+
 const client = new MongoClient(stringConection,{
    useNewUrlParser: true,
    useUnifiedTopology: true,
@@ -97,8 +98,8 @@ const main = () => {
       conexion = db.db('Concesionario');
       console.log('Conexión Exitosa!')
 
-      return app.listen(5000, () => {
-         console.log('Esuchando puerto 5000');
+      return app.listen(process.env.PORT, () => {
+         console.log(`Esuchando puerto ${process.env.PORT}`);
       }); 
    });
 };
